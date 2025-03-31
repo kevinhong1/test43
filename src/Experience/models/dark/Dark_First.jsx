@@ -1,47 +1,47 @@
 import React, { useRef, useMemo } from "react";
-import { useGLTFWithKTX2 } from "../../utils/useGLTFWithKTX2";
+import { useGLTF } from "@react-three/drei";
 import { convertMaterialsToBasic } from "../../utils/convertToBasic";
 import * as THREE from "three";
 import videos from "../../utils/videoTextures";
 
 export default function Model(props) {
-  const { nodes, materials } = useGLTFWithKTX2(
-    "/models/Dark Room/Dark_First.glb"
-  );
+  const { nodes, materials } = useGLTF("/models/Light Room/Light_First.glb");
   const newMaterials = convertMaterialsToBasic(materials);
 
-  const macScreenRef = useRef();
-  const computerScreenRef = useRef();
+  const desktopScreenRef = useRef();
+  const iPhoneScreenRef = useRef();
 
   const computerScreenMaterial = useMemo(() => {
     return new THREE.MeshBasicMaterial({
-      color: "#8a8a8a",
-      map: videos.devWork.texture,
+      color: "#f6f6f6",
+      map: videos.designWork.texture,
     });
   }, []);
 
   return (
     <group {...props} dispose={null}>
       <mesh
-        ref={macScreenRef}
-        geometry={nodes.Mac_Screen.geometry}
+        ref={iPhoneScreenRef}
+        geometry={nodes.iPhone_Screen.geometry}
         material={computerScreenMaterial}
-        position={[-0.861, 0.815 - 0.02, 0.684]}
-        rotation={[0, 0.523, 0]}
+        position={[23.994, 0.734, -1.338]}
+        rotation={[0, -1.193, Math.PI / 2]}
       />
       <mesh
-        ref={computerScreenRef}
-        geometry={nodes.Computer_Screen.geometry}
+        ref={desktopScreenRef}
+        geometry={nodes.Desktop_Screen.geometry}
         material={computerScreenMaterial}
-        position={[-0.302, 0.955 - 0.02, 0.647]}
-        rotation={[0, -0.053, 0]}
+        position={[24.377, 0.968, -1.548]}
+        rotation={[-Math.PI / 2, 0, 0]}
       />
       <mesh
-        geometry={nodes.First_Baked.geometry}
-        material={newMaterials.first_real_realfdsa_Baked}
-        position={[-0.231, -0.14 - 0.02, 0.652]}
-        rotation={[Math.PI, 0, Math.PI]}
+        geometry={nodes.Light_First_Baked.geometry}
+        material={newMaterials.REAL_first_Baked}
+        position={[23.66, 1.452, -1.692]}
+        rotation={[-Math.PI / 2, 0, 0]}
       />
     </group>
   );
 }
+
+useGLTF.preload("/models/Light Room/Light_First.glb");
