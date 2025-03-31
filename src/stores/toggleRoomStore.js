@@ -1,22 +1,22 @@
 import { create } from "zustand";
 
 export const useToggleRoomStore = create((set) => ({
-  isDarkRoom: false,
+  isDarkRoom: true,
   isTransitioning: false,
   isBeforeZooming: false,
 
-  setDarkRoom: (value) =>
+  setDarkRoom: (booleanValue) =>
     set({
-      isDarkRoom: value,
+      isDarkRoom: booleanValue,
     }),
 
-  setIsTransitioning: (value) =>
+  setIsTransitioning: (booleanValue) =>
     set({
-      isTransitioning: value,
+      isTransitioning: booleanValue,
     }),
 
-  setIsBeforeZooming: (value) =>
+  setIsBeforeZooming: (booleanValue) =>
     set({
-      isBeforeZooming: value,
+      isBeforeZooming: booleanValue,
     }),
 }));
