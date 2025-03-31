@@ -28,7 +28,11 @@ const Experience = () => {
       ],
     },
     light: {
-      position: [3.2041090652046087, 16.216669507215555, 21.63810658489048],
+      position: [
+        -5.091815760151335 * 1.5,
+        4.21834729421205 * 1.5,
+        5.338096715730072 * 1.5,
+      ],
     },
   };
 
@@ -135,7 +139,7 @@ const Experience = () => {
         <OrthographicCamera
           ref={cameraRef}
           makeDefault
-          position={cameraPositions.dark.position}
+          position={cameraPositions.light.position}
           rotation={[
             -0.6138097686916666, -0.6852967312960734, -0.41947779883392433,
           ]}

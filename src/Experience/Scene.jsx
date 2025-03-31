@@ -21,21 +21,21 @@ import gsap from "gsap";
 import { useFrame } from "@react-three/fiber";
 
 const Scene = ({ pointerRef }) => {
-  const lightGroupRef = useRef();
   const darkGroupRef = useRef();
+  const lightGroupRef = useRef();
   const gridPlanesRef = useRef();
-  const lightRoomGroupPosition = new THREE.Vector3(0, 0, 0);
-  const darkRoomGroupPosition = new THREE.Vector3(24.79, 0, 0.173);
+  const darkRoomGroupPosition = new THREE.Vector3(0, 0, 0);
+  const lightRoomGroupPosition = new THREE.Vector3(24.79, 0, 0.173);
   const groupRotationRef = useRef(0);
-  const { isLightRoom } = useToggleRoomStore();
+  const { isDarkRoom } = useToggleRoomStore();
   const { isExperienceReady } = useExperienceStore();
 
   useEffect(() => {
     if (!gridPlanesRef.current) return;
 
-    const targetPosition = isLightRoom
-      ? lightRoomGroupPosition
-      : darkRoomGroupPosition;
+    const targetPosition = isDarkRoom
+      ? darkRoomGroupPosition
+      : lightRoomGroupPosition;
 
     gsap.set(gridPlanesRef.current.position, {
       x: targetPosition.x,
@@ -48,9 +48,9 @@ const Scene = ({ pointerRef }) => {
   useEffect(() => {
     if (!gridPlanesRef.current) return;
 
-    const targetPosition = isLightRoom
-      ? lightRoomGroupPosition
-      : darkRoomGroupPosition;
+    const targetPosition = isDarkRoom
+      ? darkRoomGroupPosition
+      : lightRoomGroupPosition;
 
     gsap.to(gridPlanesRef.current.position, {
       x: targetPosition.x,
@@ -58,12 +58,12 @@ const Scene = ({ pointerRef }) => {
       z: targetPosition.z,
       delay: 1,
     });
-  }, [isLightRoom]);
+  }, [isDarkRoom]);
 
   useFrame(() => {
     if (
-      !lightGroupRef.current ||
       !darkGroupRef.current ||
+      !lightGroupRef.current ||
       !gridPlanesRef.current
     )
       return;
@@ -88,11 +88,11 @@ const Scene = ({ pointerRef }) => {
     <>
       <Suspense>
         <group ref={darkGroupRef}>
-          <LightRoomFirst />
-          <LightRoomSecond />
-          <LightRoomThird />
-          <LightRoomFourth />
-          <LightTargets />
+          <DarkRoomFirst />
+          <DarkRoomSecond />
+          <DarkRoomThird />
+          <DarkRoomFourth />
+          <DarkTargets />
         </group>
 
         <group ref={lightGroupRef} position={lightRoomGroupPosition}>
